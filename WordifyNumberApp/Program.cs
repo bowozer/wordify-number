@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using WordifyNumberApp;
+
 Console.WriteLine("Please input number: ");
 
 string? line = Console.ReadLine();
