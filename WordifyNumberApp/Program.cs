@@ -19,7 +19,7 @@ if (line!.Length > ((int)ThreeNumberPosition.Quintillions * 3))
     return;
 }
 
-Console.WriteLine("Number to wordify: {0:#,0}", value);
+Console.WriteLine("Number to wordify: {0:C2}", Math.Truncate(value * 100) / 100);
 Console.WriteLine("Hit any key to proceed");
 Console.ReadKey();
 
@@ -30,3 +30,5 @@ string words = wordifyNumber.Wordify(line!);
 Console.WriteLine();
 Console.WriteLine("Wordify Number: " + words);
 
+// todo-bowo: add folder distribution
+// todo-bowo: readme.md, about explanation of the algorithm

@@ -73,31 +73,62 @@ namespace WordifyNumberTests
         }
 
         [Theory]
-        [InlineData("0", "zero")]
-        [InlineData("0000", "zero")]
-        [InlineData("1", "one")]
-        [InlineData("17", "seventeen")]
-        [InlineData("73", "seventy three")]
-        [InlineData("430", "four hundred and thirty")]
-        [InlineData("1000", "one thousand")]
-        [InlineData("1001", "one thousand and one")]
-        [InlineData("1082", "one thousand and eighty two")]
-        [InlineData("2195", "two thousand one hundred and ninety five")]
-        [InlineData("22000", "twenty two thousand")]
-        [InlineData("22002", "twenty two thousand and two")]
-        [InlineData("345000", "three hundred and forty five thousand")]
-        [InlineData("345003", "three hundred and forty five thousand and three")]
-        [InlineData("4000000", "four million")]
-        [InlineData("4000004", "four million and four")]
-        [InlineData("4005000", "four million and five thousand")]
-        [InlineData("4005006", "four million and five thousand and six")]
-        [InlineData("4207000", "four million two hundred and seven thousand")]
-        [InlineData("5000000000", "five billion")]
-        [InlineData("6000000000000", "six trillion")]
-        [InlineData("7000000000000000", "seven quadrillion")]
-        [InlineData("8000000000000000000", "eight quintillion")]
-        [InlineData("9876543210123456789", "nine quintillion eight hundred and seventy six quadrillion five hundred and forty three trillion two hundred and ten billion one hundred and twenty three million four hundred and fifty six thousand seven hundred and eighty nine")]
-        [InlineData("999999999999999999999", "nine hundred and ninety nine quintillion nine hundred and ninety nine quadrillion nine hundred and ninety nine trillion nine hundred and ninety nine billion nine hundred and ninety nine million nine hundred and ninety nine thousand nine hundred and ninety nine")]
+        [InlineData("0", "zero dollar")]
+        [InlineData("0000", "zero dollar")]
+        [InlineData("1", "one dollar")]
+        [InlineData("17", "seventeen dollars")]
+        [InlineData("73", "seventy three dollars")]
+        [InlineData("430", "four hundred and thirty dollars")]
+        [InlineData("1000", "one thousand dollars")]
+        [InlineData("1001", "one thousand and one dollars")]
+        [InlineData("1082", "one thousand and eighty two dollars")]
+        [InlineData("2195", "two thousand one hundred and ninety five dollars")]
+        [InlineData("22000", "twenty two thousand dollars")]
+        [InlineData("22002", "twenty two thousand and two dollars")]
+        [InlineData("345000", "three hundred and forty five thousand dollars")]
+        [InlineData("345003", "three hundred and forty five thousand and three dollars")]
+        [InlineData("4000000", "four million dollars")]
+        [InlineData("4000004", "four million and four dollars")]
+        [InlineData("4005000", "four million and five thousand dollars")]
+        [InlineData("4005006", "four million and five thousand and six dollars")]
+        [InlineData("4207000", "four million two hundred and seven thousand dollars")]
+        [InlineData("5000000000", "five billion dollars")]
+        [InlineData("6000000000000", "six trillion dollars")]
+        [InlineData("7000000000000000", "seven quadrillion dollars")]
+        [InlineData("8000000000000000000", "eight quintillion dollars")]
+        [InlineData("9876543210123456789", "nine quintillion eight hundred and seventy six quadrillion five hundred and forty three trillion two hundred and ten billion one hundred and twenty three million four hundred and fifty six thousand seven hundred and eighty nine dollars")]
+        [InlineData("999999999999999999999", "nine hundred and ninety nine quintillion nine hundred and ninety nine quadrillion nine hundred and ninety nine trillion nine hundred and ninety nine billion nine hundred and ninety nine million nine hundred and ninety nine thousand nine hundred and ninety nine dollars")]
+        public void Wordify_WordifyDollarText_VariousCases_ReturnAsExpected(string numberText, string expectedWords)
+        {
+            // Act
+            string words = _wordifyNumber.Wordify(numberText);
+
+            // Assert
+            Assert.Equal(expectedWords, words);
+        }
+
+        [Theory]
+        [InlineData("0.0", "zero dollar")]
+        [InlineData("0.00", "zero dollar")]
+        [InlineData("00.00", "zero dollar")]
+        [InlineData("0.1", "one cent")]
+        [InlineData("0.9", "nine cents")]
+        [InlineData("0.12", "twelve cents")]
+        [InlineData("0.45", "forty five cents")]
+        [InlineData("0.873", "eighty seven cents")]
+        public void Wordify_WordifyCentText_VariousCases_ReturnAsExpected(string numberText, string expectedWords)
+        {
+            // Act
+            string words = _wordifyNumber.Wordify(numberText);
+
+            // Assert
+            Assert.Equal(expectedWords, words);
+        }
+
+        [Theory]
+        [InlineData("2", "two dollars")]
+        [InlineData("3.25", "three dollars and twenty five cents")]
+        [InlineData("123.321", "one hundred and twenty three dollars and thirty two cents")]
         public void Wordify_VariousCases_ReturnAsExpected(string numberText, string expectedWords)
         {
             // Act

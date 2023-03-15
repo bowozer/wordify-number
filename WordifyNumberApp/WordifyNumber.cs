@@ -2,15 +2,18 @@
 
 namespace WordifyNumberApp
 {
-    // todo-bowo: add "dollars and cents"
     public class WordifyNumber
     {
         private const char ZERO = '0';
         private const char SPACE = ' ';
+        private const char POINT = '.';
         private const string AND = "and";
         private const string TEN = "ten";
-
-        private static readonly Dictionary<string, string> correctionDictionary = new()
+        private const string DOLLARS = "dollars";
+        private const string CENTS = "cents";
+        private static readonly string DollarSingular = DOLLARS.Substring(0, DOLLARS.Length - 1);
+        private static readonly string CentSingular = CENTS.Substring(0, CENTS.Length - 1);
+        private static readonly Dictionary<string, string> CorrectionDictionary = new()
         {
             { ThreeNumberPosition.Quintillions.ToString(), "quintillion" },
             { ThreeNumberPosition.Quadrillions.ToString(), "quadrillion" },
@@ -61,7 +64,45 @@ namespace WordifyNumberApp
             bool success = decimal.TryParse(numberText, out decimal parsedNum);
             if (!success || parsedNum < 0) throw new ArgumentException($"Cannot wordify ${numberText} because it is not a valid positive decimal value.");
 
-            string[] threeNumberArray = BuildArrayOfThree(numberText);
+            string[] splittedTextArray = numberText.Split(POINT, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            string dollarText = splittedTextArray[0];
+            string centText = splittedTextArray.Length > 1 ? splittedTextArray[1] : string.Empty;
+
+            string dollarWords = WordifyDollarText(dollarText);
+
+            string centWords = WordifyCentText(centText);
+
+            var wordBuilder = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(dollarWords))
+            {
+                wordBuilder.Append(dollarWords);
+                wordBuilder.Append(SPACE);
+                wordBuilder.Append(dollarWords == OnesNumber.One.ToString().ToLower() ? DollarSingular : DOLLARS);
+            }
+
+            if (!string.IsNullOrEmpty(centWords))
+            {
+                if (!string.IsNullOrEmpty(dollarWords))
+                {
+                    wordBuilder.Append(SPACE);
+                    wordBuilder.Append(AND);
+                    wordBuilder.Append(SPACE);
+                }
+                wordBuilder.Append(centWords);
+                wordBuilder.Append(SPACE);
+                wordBuilder.Append(centWords == OnesNumber.One.ToString().ToLower() ? CentSingular : CENTS);
+            }
+
+            string words = wordBuilder.ToString().TrimEnd();
+
+            if (string.IsNullOrEmpty(words)) return OnesNumber.Zero.ToString().ToLower() + SPACE + DollarSingular;
+            return words;
+        }
+
+        private string WordifyDollarText(string dollarText)
+        {
+            string[] threeNumberArray = BuildArrayOfThree(dollarText);
             if (threeNumberArray.Length > (int)ThreeNumberPosition.Quintillions) throw new InvalidOperationException("cannot process passed Quintillions");
 
             var wordBuilder = new StringBuilder();
@@ -91,10 +132,24 @@ namespace WordifyNumberApp
                 }
             }
 
-            string words = TrimNumberWords(wordBuilder);
+            string dollarWords = TrimNumberWords(wordBuilder);
+            return dollarWords;
+        }
 
-            if (string.IsNullOrEmpty(words)) return OnesNumber.Zero.ToString().ToLower();
-            return words;
+        private string WordifyCentText(string centText)
+        {
+            string centWords = string.Empty;
+            if (!string.IsNullOrEmpty(centText))
+            {
+                if (centText.Length > 2)
+                {
+                    centText = centText.Substring(0, 2);
+                }
+
+                centWords = WordifyHundredOrLess(centText);
+            }
+
+            return centWords;
         }
 
         internal string WordifyHundredOrLess(string hundredText)
@@ -166,9 +221,9 @@ namespace WordifyNumberApp
 
         private static string Correction(string numberText)
         {
-            if (correctionDictionary.ContainsKey(numberText))
+            if (CorrectionDictionary.ContainsKey(numberText))
             {
-                return correctionDictionary[numberText];
+                return CorrectionDictionary[numberText];
             }
 
             return numberText;
