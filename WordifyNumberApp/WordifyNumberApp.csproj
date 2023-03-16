@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Company>Bowozer Software</Company>
+    <Copyright>Copyright © 2023 Bowozer Software</Copyright>
+    <Authors>Ardhio Wibowo</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

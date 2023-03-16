@@ -28,7 +28,4 @@ var wordifyNumber = new WordifyNumber();
 string words = wordifyNumber.Wordify(line!);
 
 Console.WriteLine();
-Console.WriteLine("Wordify Number: " + words);
-
-// todo-bowo: add folder distribution
-// todo-bowo: readme.md, about explanation of the algorithm
+Console.WriteLine("Wordified Number: " + words);
