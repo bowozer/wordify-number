@@ -188,7 +188,6 @@ namespace WordifyNumberApp
                     tensText = Correction($"{currentNumberText}ty");
                     if (tensText != TEN)
                     {
-                        // todo-bowo: can we use dash to separate tens and ones? e.g forty-five, twenty-three
                         wordBuilder.Append(tensText);
                         wordBuilder.Append(SPACE);
                     }
