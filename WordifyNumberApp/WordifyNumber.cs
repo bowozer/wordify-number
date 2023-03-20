@@ -141,10 +141,14 @@ namespace WordifyNumberApp
             string centWords = string.Empty;
             if (!string.IsNullOrEmpty(centText))
             {
-                if (centText.Length > 2)
+                const int CENT_LENGTH = 2;
+
+                if (centText.Length > CENT_LENGTH)
                 {
-                    centText = centText.Substring(0, 2);
+                    centText = centText.Substring(0, CENT_LENGTH);
                 }
+
+                centText = centText.PadRight(CENT_LENGTH, ZERO);
 
                 centWords = WordifyHundredOrLess(centText);
             }

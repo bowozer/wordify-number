@@ -111,11 +111,14 @@ namespace WordifyNumberTests
         [InlineData("0.0", "zero dollar")]
         [InlineData("0.00", "zero dollar")]
         [InlineData("00.00", "zero dollar")]
-        [InlineData("0.1", "one cent")]
-        [InlineData("0.9", "nine cents")]
+        [InlineData("0.01", "one cent")]
+        [InlineData("0.02", "two cents")]
+        [InlineData("0.1", "ten cents")]
         [InlineData("0.12", "twelve cents")]
+        [InlineData("0.20", "twenty cents")]
         [InlineData("0.45", "forty five cents")]
         [InlineData("0.873", "eighty seven cents")]
+        [InlineData("0.9", "ninety cents")]
         public void Wordify_WordifyCentText_VariousCases_ReturnAsExpected(string numberText, string expectedWords)
         {
             // Act
