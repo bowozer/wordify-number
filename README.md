@@ -2,17 +2,20 @@
 An app to change numbers into words, just like people use in cheques. 
 
 ## How to use without build
-Just go to `dist/` folder and execute `WordifyNumberApp.exe`
+Just go to `dist/portable` folder and execute `WordifyNumberApp.exe`. 
 
 ```
-[path-to-dist]\wordify-number\dist>.\WordifyNumberApp.exe
+[path-to-root]\wordify-number\dist\portable>.\WordifyNumberApp.exe
 Please input number:
 123.45
 Number to wordify: $123.45
 Hit any key to proceed
 
 Wordified Number: one hundred and twenty three dollars and forty five cents
+
+Again? [Y] Yes, [n] No:
 ```
+You can also uses another distributions if your machine do not have .NET 6.0 runtime installed. E.g `dist/win-x64` is a distribution for windows 64 bit.
 
 ## Build, Run, and Tests
 This App is written in .NET 6.0, C#.  
