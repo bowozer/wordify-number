@@ -129,6 +129,8 @@ namespace WordifyNumberTests
         }
 
         [Theory]
+        [InlineData(".1", "ten cents")]
+        [InlineData(".099", "nine cents")]
         [InlineData("2", "two dollars")]
         [InlineData("3.25", "three dollars and twenty five cents")]
         [InlineData("123.321", "one hundred and twenty three dollars and thirty two cents")]

@@ -64,7 +64,7 @@ namespace WordifyNumberApp
             bool success = decimal.TryParse(numberText, out decimal parsedNum);
             if (!success || parsedNum < 0) throw new ArgumentException($"Cannot wordify ${numberText} because it is not a valid positive decimal value.");
 
-            string[] splittedTextArray = numberText.Split(POINT, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            string[] splittedTextArray = numberText.Split(POINT, StringSplitOptions.TrimEntries);
             string dollarText = splittedTextArray[0];
             string centText = splittedTextArray.Length > 1 ? splittedTextArray[1] : string.Empty;
 
